@@ -20,6 +20,9 @@ class Requester:
 	Args:
 		binHtml (bytes):  the binary html content
 		filename (str): the file to save the data to
+
+	Returns:
+		Nothing
 	"""
 	def dumpHtml(self, c, filename):
 		fd = open(filename, 'wb')

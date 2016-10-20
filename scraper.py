@@ -7,10 +7,16 @@ class Scraper:
 			'nytimes', 'espn', 'usatoday', 'independent', 
 			'bbc', 'foxnews', 'wsj']
 	
-	"""
-	Iterate through the html page and print out the
+	"""Iterate through the html page and print out the
 	urls that are associated with designated news
-	sources
+	sources.
+
+	Args: 
+		content (bytes): the binary html content
+
+	Returns:
+		Nothing
+
 	"""
 	def scrape(self, content):
 		soup = BeautifulSoup(content, 'html.parser')
@@ -21,6 +27,15 @@ class Scraper:
 				##if 'http' in link.get('href'):
 					print(url_string_attr)
 
+	"""Check to see if a url is coming
+	from a designated news source.
+
+	Args: 
+		url_string (str): the string to search
+
+	Returns:
+		(bool) True or False
+	"""
 	def isSource(self, url_string):
 		for source in self.sources:
 			if source in url_string:
