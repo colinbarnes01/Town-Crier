@@ -12,7 +12,8 @@ class Requester:
 	"""
 	def getHtmlBinary(self, url):
 		r = requests.get(url)
-		print(r.status_code)
+		code = r.status_code
+		print( 'requests status code: {}'.format(code) )
 		return r.content
 
 	"""Dumps the html binary to a pickle file
@@ -31,3 +32,6 @@ class Requester:
 	def loadHtml(self, filename):
 		fd = open(filename, 'rb')
 		return pickle.load(fd)
+
+requester = Requester()
+requester.getHtmlBinary('http://csb.stanford.edu/class/public/pages/sykes_webdesign/05_simple.html')

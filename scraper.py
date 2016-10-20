@@ -7,25 +7,31 @@ class Scraper:
 			'nytimes', 'espn', 'usatoday', 'independent', 
 			'bbc', 'foxnews', 'wsj']
 	
-	"""Iterate through the html page and print out the
+	"""Iterate through the html page and find the
 	urls that are associated with designated news
-	sources.
+	sources.  Essentially eliminates the unwanted
+	links to google and other non-news sources.
 
 	Args: 
 		content (bytes): the binary html content
 
 	Returns:
-		Nothing
+		news_urls (str[]): list of strings containing
+		any url found in the html page which leads to
+		a news story.
 
 	"""
 	def scrape(self, content):
+		news_urls = []
+
 		soup = BeautifulSoup(content, 'html.parser')
 		for link in soup.find_all('a'):
 			url_string_attr = link.get('href')
 			if url_string_attr:
 				if self.isSource(url_string_attr):
 				##if 'http' in link.get('href'):
-					print(url_string_attr)
+					news_urls.append(url_string_attr)
+		return news_urls
 
 	"""Check to see if a url is coming
 	from a designated news source.
