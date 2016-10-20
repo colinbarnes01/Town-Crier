@@ -1,4 +1,3 @@
-import requests
 import pickle
 from bs4 import BeautifulSoup
 
@@ -8,16 +7,9 @@ class Scraper:
 			'nytimes', 'espn', 'usatoday', 'independent', 
 			'bbc', 'foxnews', 'wsj']
 	
-
-	def getHtml(self, url):
-		r = requests.get(url)
-		print(r.status_code)
-		c = r.content
-		return c
-
 	"""
 	Iterate through the html page and print out the
-	urls that are associated with reputable new
+	urls that are associated with designated news
 	sources
 	"""
 	def scrape(self, content):
@@ -35,21 +27,7 @@ class Scraper:
 				return True;
 		return False;
 
-	def dumpHtml(self, c, filename):
-		fd = open(filename, 'wb')
-		pickle.dump(c, fd)
-
-	def loadHtml(self, filename):
-		fd = open(filename, 'rb')
-		return pickle.load(fd)
 
 
-
-scraper = Scraper()
-##html = scraper.getHtml('https://news.google.com/')
-##scraper.dumpHtml(html, 'pickledHtml.pkl')
-
-html = scraper.loadHtml('pickledHtml.pkl')
-scraper.scrape(html)
 
 
