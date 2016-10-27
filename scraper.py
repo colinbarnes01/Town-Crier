@@ -8,30 +8,45 @@ class Scraper:
 			'bbc', 'foxnews', 'wsj']
 	
 	"""Iterate through the html page and find the
-	urls that are associated with designated news
-	sources.  Essentially eliminates the unwanted
-	links to google and other non-news sources.
+	urls.
 
 	Args: 
 		content (bytes): the binary html content
 
 	Returns:
-		news_urls (str[]): list of strings containing
-		any url found in the html page which leads to
-		a news story.
+		urls (str[]): list of urls found in
+		the webpage.
 
 	"""
-	def scrape(self, content):
-		news_urls = []
+	def scrapeUrls(self, content):
+		urls = []
 
 		soup = BeautifulSoup(content, 'html.parser')
 		for link in soup.find_all('a'):
 			url_string_attr = link.get('href')
 			if url_string_attr:
-				if self.isSource(url_string_attr):
-				##if 'http' in link.get('href'):
-					news_urls.append(url_string_attr)
+				urls.append(url_string_attr)
+		return urls
+
+
+	"""Iterate through the list of urls and eliminate
+	the unwanted links to google and other non-news sources.
+
+	Args: 
+		url_list (str[]): list of all urls found in webpage
+
+	Returns:
+		news_urls (str[]): list of urls which lead to
+		a news story.
+
+	"""
+	def getNewsUrls(self, url_ist):
+		news_urls = []
+		for url in url_list:
+			if self.isNewsSource(url):
+				news_urls.append(url)
 		return news_urls
+
 
 	"""Check to see if a url is coming
 	from a designated news source.
@@ -42,7 +57,7 @@ class Scraper:
 	Returns:
 		(bool) True or False
 	"""
-	def isSource(self, url_string):
+	def isNewsSource(self, url_string):
 		for source in self.sources:
 			if source in url_string:
 				return True;

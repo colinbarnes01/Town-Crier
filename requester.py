@@ -16,6 +16,19 @@ class Requester:
 		print( 'requests status code: {}'.format(code) )
 		return r.content
 
+	"""Make a url request.
+
+	Args: 
+		url (str): the url to request.
+	Returns:
+		text content of the html page
+	"""
+	def getHtmlText(self, url):
+		r = requests.get(url)
+		code = r.status_code
+		print( 'requests status code: {}'.format(code) )
+		return r.text
+
 	"""Dumps the html binary to a pickle file
 
 	Args:
