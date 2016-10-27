@@ -1,4 +1,5 @@
 from keys import keys
+import tweepy
 
 """ Currently I am storing the keys in a separate python
 file called keys which contains a python dictionary holding
@@ -25,5 +26,10 @@ class AccountManager():
 	def getKeys(self):
 	    return (self.ACCESS_TOKEN, self.ACCESS_TOKEN_SECRET, 
 	    	self.CONSUMER_KEY, self.CONSUMER_KEY_SECRET)
+
+	def authenticate(self):
+		auth = tweepy.OAuthHandler(self.CONSUMER_KEY, self.CONSUMER_KEY_SECRET)
+		auth.set_access_token(self.ACCESS_TOKEN, self.ACCESS_TOKEN_SECRET)
+		self.api = tweepy.API(auth)
 
 		
