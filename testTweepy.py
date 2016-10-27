@@ -1,6 +1,5 @@
 import tweepy
 from accountmanager import AccountManager
-import unittest
 
 
 

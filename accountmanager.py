@@ -1,5 +1,12 @@
 from keys import keys
 
+""" Currently I am storing the keys in a separate python
+file called keys which contains a python directory holding
+the keys.  This is done so that I do not have to upload
+the actual key file to my public githhub.  I may refactor
+this in the future.
+"""
+
 class AccountManager():
 
 	CONSUMER_KEY = ""
