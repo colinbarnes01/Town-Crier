@@ -1,14 +1,14 @@
 import tweepy
 from accountmanager import AccountManager
 
+def getAPI():
+	acctManager = AccountManager()
+	acctManager.getKeys()
+	acctManager.authenticate()
+	api = acctManager.api
+	return api
 
-
-def test_authentication():
-	acctManager = AccountManager();
-	acctManager.getKeys();
-	acctManager.authenticate();
-	api = acctManager.api;
-
+def testAuthentication(api):
 	try:
 		api.home_timeline()
 	except tweepy.TweepError as TweepError:
@@ -18,5 +18,9 @@ def test_authentication():
 	else:
 		print('test_authentication passed: twitter api authentication successful')
 
+def testTweet():
+	api.update_status("This is a test")
 
-test_authentication()
+api = getAPI()
+testAuthentication(api)
+testTweet()
