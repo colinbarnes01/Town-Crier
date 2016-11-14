@@ -1,4 +1,7 @@
+from state import BotState
+import ready
+
 class Waiting(BotState):
 
-	def changeState(context):
-		context.setState( Ready() )
+	def changeState(self, context):
+		context.setState( ready.Ready() )

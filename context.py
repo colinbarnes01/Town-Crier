@@ -1,8 +1,13 @@
+from state import BotState
+import ready
+
 class BotContext:
-	BotState currentState;
 
-	def __init__():
-		this.currentstate = Ready()
+	def __init__(self):
+		self.currentState = ready.Ready()
 
-	def setState(state):
-		this.currentState = state;
+	def setState(self, state):
+		self.currentState = state
+
+	def changeState(self):
+		self.currentState.changeState(self)

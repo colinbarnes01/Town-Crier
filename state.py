@@ -1,4 +1,6 @@
+import context
+
 class BotState:
 
-	def changeState(context)
+	def changeState(self, context):
 		pass;
