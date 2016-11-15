@@ -3,5 +3,5 @@ import waiting
 
 class Ready(BotState):
 
-	def changeState(self, context):
-		context.setState( waiting.Waiting() )
+	def changeState(self):
+		self.context.setState( waiting.Waiting(self.context) )
