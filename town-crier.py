@@ -13,6 +13,11 @@ def main():
 	
 
 	##while True:
+		if context.currentState.status == "WAITING":
+			print('wating in while loop')
+			time.sleep(3)
+			context.changeState()
+
 		##url = 'https://news.google.com/'													## the real url to google news
 		##url = 'http://csb.stanford.edu/class/public/pages/sykes_webdesign/05_simple.html'	## use this to test
 		url = 'https://users.cs.cf.ac.uk/Dave.Marshall/PERL/node257.html'
@@ -36,10 +41,10 @@ def main():
 		acctManager.getKeys();
 		acctManager.authenticate();
 		api = acctManager.api;
-		
 
-	context.changeState()
-	print(context.currentState)
+		context.changeState()
+
+		print(context.currentState)
 
 
 if __name__ == '__main__':
