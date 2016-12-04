@@ -8,23 +8,6 @@ class Scraper:
 			'bbc', 'foxnews', 'wsj']
 	
 
-	def scrapeHeadlines(self, content):
-		headlines = []
-
-		soup = BeautifulSoup(content, 'html.parser')
-		for tag in soup.find_all('span', attrs={'class':'titletext'}):
-			try:
-				tagstr = str(tag)
-				#print(tagstr)
-				headlines.append(tagstr.encode('utf-8'))
-			except UnicodeEncodeError:
-				print('got a unicode encoding error while scraping headlines')
-			
-		for headline in headlines:
-			print(headline)
-		return headlines
-
-
 	"""Iterate through the html page and find the
 	urls.
 
@@ -46,10 +29,8 @@ class Scraper:
 			try:
 				headline = self.getHeadline(str(link))
 				if headline != 'None':
-					#headlines.append(headline.encode('utf-8'))
 					url_string_attr = link.get('href')
 					if url_string_attr:
-						#urls.append(url_string_attr)
 						thenews[headline.encode('utf-8')] = url_string_attr
 
 			except Exception as e:
