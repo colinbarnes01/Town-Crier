@@ -46,3 +46,4 @@ class Requester:
 	def loadHtml(self, filename):
 		fd = open(filename, 'rb')
 		return pickle.load(fd)
+

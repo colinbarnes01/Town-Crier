@@ -7,6 +7,24 @@ class Scraper:
 			'nytimes', 'espn', 'usatoday', 'independent', 
 			'bbc', 'foxnews', 'wsj']
 	
+
+	def scrapeHeadlines(self, content):
+		headlines = []
+
+		soup = BeautifulSoup(content, 'html.parser')
+		for tag in soup.find_all('span', attrs={'class':'titletext'}):
+			try:
+				tagstr = str(tag)
+				#print(tagstr)
+				headlines.append(tagstr.encode('utf-8'))
+			except UnicodeEncodeError:
+				print('got a unicode encoding error while scraping headlines')
+			
+		for headline in headlines:
+			print(headline)
+		return headlines
+
+
 	"""Iterate through the html page and find the
 	urls.
 
@@ -20,14 +38,32 @@ class Scraper:
 	"""
 	def scrapeUrls(self, content):
 		urls = []
+		headlines = []
+		thenews = {}
 
 		soup = BeautifulSoup(content, 'html.parser')
 		for link in soup.find_all('a'):
-			url_string_attr = link.get('href')
-			if url_string_attr:
-				urls.append(url_string_attr)
+			try:
+				headline = self.getHeadline(str(link))
+				if headline != 'None':
+					#headlines.append(headline.encode('utf-8'))
+					url_string_attr = link.get('href')
+					if url_string_attr:
+						#urls.append(url_string_attr)
+						thenews[headline.encode('utf-8')] = url_string_attr
+
+			except Exception as e:
+				print('Exception tryin to parse headlines')
+			
+
+		print(thenews)
 		return urls
 
+
+	def getHeadline(self, link):
+		soup = BeautifulSoup(link, 'html.parser')
+		headline = soup.find('span', attrs={'class':'titletext'})
+		return str(headline)
 
 	"""Iterate through the list of urls and eliminate
 	the unwanted links to google and other non-news sources.
@@ -62,7 +98,6 @@ class Scraper:
 			if source in url_string:
 				return True;
 		return False;
-
 
 
 
