@@ -27,17 +27,20 @@ class TestScraping(unittest.TestCase):
 		binary = self.requester.getHtmlBinary('http://csb.stanford.edu/class/public/pages/sykes_webdesign/05_simple.html')
 		knownBinary = requests.get('http://csb.stanford.edu/class/public/pages/sykes_webdesign/05_simple.html')
 		self.assertEqual( knownBinary.content, binary )
-
-	
-	def test_scrape(self):
-		r = requests.get('http://csb.stanford.edu/class/public/pages/sykes_webdesign/05_simple.html')
-		urls = self.scraper.scrapeUrls(r.content)
-		self.assertEqual(urls[0], 'http://www.yahoo.com/')
 	"""
-	def test_getHeadlines(self):
+	"""
+	def test_scrape(self):
+		#r = requests.get('http://csb.stanford.edu/class/public/pages/sykes_webdesign/05_simple.html')
 		r = requests.get('https://news.google.com/')
-		headlines = self.scraper.scrapeHeadlines(r.content)
-
+		urls = self.scraper.scrapeUrls(r.content)
+		#self.assertEqual(urls[0], 'http://www.yahoo.com/')
+	"""
+	
+	def test_sanitizeHeadlines(self):
+	     testHeadline = "b'<span class=\"titletext\">This is a headline</span>'"
+	     sanitizedHeadline = self.scraper.sanitizeHeadline(testHeadline)
+	     print(sanitizedHeadline)
+	     self.assertEqual(sanitizedHeadline, "This is a headline")
 	
 
 
