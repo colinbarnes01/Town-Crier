@@ -17,31 +17,42 @@ import requests
 import pickle
 from scraper import Scraper
 from requester import Requester
+from converter import Converter
 
 
 class TestScraping(unittest.TestCase):
 	requester = Requester()
 	scraper = Scraper()
+	converter = Converter()
 	"""
 	def test_getHtmlBinary(self):
 		binary = self.requester.getHtmlBinary('http://csb.stanford.edu/class/public/pages/sykes_webdesign/05_simple.html')
 		knownBinary = requests.get('http://csb.stanford.edu/class/public/pages/sykes_webdesign/05_simple.html')
 		self.assertEqual( knownBinary.content, binary )
-	"""
-	"""
+	
 	def test_scrape(self):
 		#r = requests.get('http://csb.stanford.edu/class/public/pages/sykes_webdesign/05_simple.html')
 		r = requests.get('https://news.google.com/')
 		urls = self.scraper.scrapeUrls(r.content)
 		#self.assertEqual(urls[0], 'http://www.yahoo.com/')
-	"""
-	
+		
 	def test_sanitizeHeadlines(self):
-	     testHeadline = "b'<span class=\"titletext\">This is a headline</span>'"
-	     sanitizedHeadline = self.scraper.sanitizeHeadline(testHeadline)
-	     print(sanitizedHeadline)
-	     self.assertEqual(sanitizedHeadline, "This is a headline")
-	
+	    testHeadline = "b'<span class=\"titletext\">This is a headline</span>'"
+	    sanitizedHeadline = self.scraper.sanitizeHeadline(testHeadline)
+	    print(sanitizedHeadline)
+	    self.assertEqual(sanitizedHeadline, "This is a headline")
+	"""
+
+	def test_encodeSpaces(self):
+		text = "All cats enjoy strings"
+		encodedText = self.converter.encodeSpaces(text)
+		self.assertEqual(encodedText, "All{}cats{}enjoy{}strings".format("%20", "%20", "%20"))
+
+	def test_convert(self):
+		text = "You gave Mr. Tim a hearty meal, but unfortunately what he ate made him die."
+		convertedText = self.converter.convert(text)
+		self.assertEqual(convertedText, "Thou did giveth Mr. Tim a hearty meal,"  
+			+ "but unfortunately what he englut did maketh him kicketh the bucket.")
 
 
 if __name__ == '__main__':
