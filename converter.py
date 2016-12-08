@@ -14,7 +14,7 @@ class Converter:
 		r = requests.get(request)
 		self.saveJsonToFile(r)
 		convertedTweet = self.parseJson()
-		print(convertedTweet)
+		return convertedTweet
 	
 	def saveJsonToFile(self, r):
 		parsed_json = json.loads(r.text)
@@ -40,9 +40,10 @@ class Converter:
 
 		
 
+#if __name__ == '__main__':
 
-text = "You gave Mr. Tim a hearty meal, but unfortunately what he ate made him die."
-converter = Converter()
-converter.convert(text)
-#converter.parseJson()
-#converter.fixLazyJsonQuotes()
+	#text = "You gave Mr. Tim a hearty meal, but unfortunately what he ate made him die."
+	#converter = Converter()
+	#converter.convert(text)
+	#converter.parseJson()
+	#converter.fixLazyJsonQuotes()

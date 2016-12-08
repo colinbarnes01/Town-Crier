@@ -7,32 +7,35 @@ class Scraper:
 			'nytimes', 'espn', 'usatoday', 'independent', 
 			'bbc', 'foxnews', 'wsj']
 	
-	"""Iterate through the html page and find the urls.
+	"""Iterate through the html page and find the news
+	headlines and corresponding urls.
 	Args: 
 		content (bytes): the binary html content
 	Returns:
-		urls (str[]): list of urls found in
+		news list[(str,str)]: list of headline, url pairs found in
 		the webpage.
 	"""
 	def scrapeUrls(self, content):
-		urls = []
-		headlines = []
-		thenews = {}
+
+		newsList = []
 
 		soup = BeautifulSoup(content, 'html.parser')
 		for link in soup.find_all('a'):
 			try:
 				headline = self.getHeadline(str(link))
+				# many headline attributes are 'None' in the soup, need to ignore those
 				if headline != 'None':
-					url_string_attr = link.get('href')
-					if url_string_attr:
-						thenews[headline.encode('utf-8')] = url_string_attr
+					url_string = link.get('href')
+					if url_string:
+						headline = headline.encode('utf-8')
+						headline = self.sanitizeHeadline(str(headline))
+						newsList.append((headline, url_string))
+						#newsList.append( (headline.encode('utf-8'), url_string) )						
 
 			except Exception as e:
 				print('Exception tryin to parse headlines')
 
-		print(thenews)
-		return urls
+		return newsList
 
 	"""Extracts the headline from the larger tag element found by
 	beautiful soup in scrapeUrls
@@ -57,8 +60,8 @@ class Scraper:
 	def sanitizeHeadline(self, headline):
 		if headline[0] == 'b':
 			headline = headline[1:]
-		spanStartTag = "'<span class=\"titletext\">"
-		spanEndTag = "</span>'"
+		spanStartTag = "\'<span class=\"titletext\">"
+		spanEndTag = "</span>\'"
 		if spanStartTag in headline:
 			index = headline.find(spanStartTag)
 			headline = headline[index+len(spanStartTag):]

@@ -1,51 +1,47 @@
 import time
+import random
 from scraper import Scraper
 from requester import Requester
-from context import BotContext
+from converter import Converter
 from accountmanager import AccountManager
-from waiting import Waiting
+
+
 
 def main():
 
-	### REQUEST THE URL PAGE AND SCRAPE IT ###
-	context = BotContext()
-	print(context.currentState)
+	requester = Requester()
+	scraper = Scraper()
+	converter = Converter() 
+
+	url = 'https://news.google.com/'													## the real url to google news
+	pickle_file = 'pickledHtml.pkl'
+
+	response = requester.getHtmlBinary(url)
+	requester.dumpHtml(response, pickle_file)
 	
+	binaryHtml = requester.loadHtml(pickle_file)
+	
+	newsList = scraper.scrapeUrls(binaryHtml)
 
-	##while True:
-		if context.currentState.status == "WAITING":
-			print('wating in while loop')
-			time.sleep(3)
-			context.changeState()
-
-		##url = 'https://news.google.com/'													## the real url to google news
-		##url = 'http://csb.stanford.edu/class/public/pages/sykes_webdesign/05_simple.html'	## use this to test
-		url = 'https://users.cs.cf.ac.uk/Dave.Marshall/PERL/node257.html'
-		pickle_file = 'pickledHtml.pkl'
-
-		requester = Requester()
-		scraper = Scraper() 
-
-		response = requester.getHtmlBinary(url)
-		requester.dumpHtml(response, pickle_file)
-		
-		binaryHtml = requester.loadHtml(pickle_file)
-
-		urls = scraper.scrapeUrls(binaryHtml)
-		for url in urls:
-			print(url)
+	print('length of newsList: {}'.format(len(newsList)))
+	random.seed()
+	rand_index = random.randint(0, len(newsList))
+	print('random index: {}'.format(rand_index))
+	random_pair = newsList[rand_index]
+	print(random_pair)
 
 
-		### AUTHENTICATE TO THE TWITTER API AND GENERATE A TWEET ###
-		acctManager = AccountManager();
-		acctManager.getKeys();
-		acctManager.authenticate();
-		api = acctManager.api;
 
-		context.changeState()
 
-		print(context.currentState)
 
+
+	### AUTHENTICATE TO THE TWITTER API AND GENERATE A TWEET ###
+	"""
+	acctManager = AccountManager();
+	acctManager.getKeys();
+	acctManager.authenticate();
+	api = acctManager.api;
+	"""
 
 if __name__ == '__main__':
 	main()
