@@ -1,8 +1,8 @@
-from state import BotState
+from state import State
 import ready
-import time
 
-class Waiting(BotState):
+
+class Waiting(State):
 
 	status = "WAITING"
 

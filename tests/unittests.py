@@ -29,11 +29,13 @@ class TestScraping(unittest.TestCase):
 		binary = self.requester.getHtmlBinary('http://csb.stanford.edu/class/public/pages/sykes_webdesign/05_simple.html')
 		knownBinary = requests.get('http://csb.stanford.edu/class/public/pages/sykes_webdesign/05_simple.html')
 		self.assertEqual( knownBinary.content, binary )
-	
-	def test_scrape(self):
+	"""
+	def test_scrapeHeadlines(self):
 		#r = requests.get('http://csb.stanford.edu/class/public/pages/sykes_webdesign/05_simple.html')
 		r = requests.get('https://news.google.com/')
-		urls = self.scraper.scrapeUrls(r.content)
+		newsList = self.scraper.scrapeHeadlines(r.content)
+		for news in newsList:
+			print(news[1])
 		#self.assertEqual(urls[0], 'http://www.yahoo.com/')
 		
 	"""
@@ -43,7 +45,6 @@ class TestScraping(unittest.TestCase):
 	    print(sanitizedHeadline)
 	    self.assertEqual(sanitizedHeadline, "This is a headline")
 	
-	"""
 	def test_encodeSpaces(self):
 		text = "All cats enjoy strings"
 		encodedText = self.converter.encodeSpaces(text)

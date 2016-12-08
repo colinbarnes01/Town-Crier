@@ -1,4 +1,5 @@
-class BotState:
+
+class State:
 
 	def __init__(self, context):
 		self.context = context

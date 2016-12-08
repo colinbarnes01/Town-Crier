@@ -1,7 +1,7 @@
-from state import BotState
+from state import State
 import waiting
 
-class Ready(BotState):
+class Ready(State):
 	
 	status = "READY"
 

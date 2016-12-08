@@ -5,8 +5,6 @@ import json
 class Converter:
 	url = "http://api.funtranslations.com/translate/shakespeare.json?text="
 
-	# You%20gave%20Mr.%20Tim%20a%20hearty%20meal%2C%20but%20unfortunately%20what%20he%20ate%20made%20him%20die.
-
 	requester = Requester()
 
 	def convert(self, text):
@@ -23,14 +21,54 @@ class Converter:
 	
 	def parseJson(self):
 		with open("translatedJson.json") as json_file:
-			string = self.fixLazyJsonQuotes(json_file)
-			jsonStuff = json.loads(string)
-			translatedString = jsonStuff["contents"]["translated"]
-			return (translatedString)
+			string = json_file.read()
+			print('\noriginal string: ' + string)
+			string = self.fixLazyJsonQuotes(string)
+			print('\nstring after fixLazy: ' + string)
+			print('\nstring after replacing \" with \\"')
+			print(string.replace('"', '\\"'))
 
-	def fixLazyJsonQuotes(self, fd):
-		string = fd.read()
-		return string.replace('\'','\"')
+			try:
+				jsonStuff = json.loads(string.replace('"', '\"'))
+			except ValueError as ve:
+				print(ve)
+				return "ValueError";
+			
+			try:
+				translatedString = jsonStuff["contents"]["translated"]
+			except KeyError as ke:
+				print(ke)
+				return('KeyError')
+			translatedString = translatedString.replace("\\", "")
+			print('translatedString ' + translatedString)
+			return translatedString
+	
+	def fixLazyJsonQuotes(self, string):
+		# get rid of current escape characters
+		string = string.replace("\\\\", "\\")
+		# remove any double quotes
+		#string = string.replace('"', '')
+		# replace single quotes with double quotes
+		string = string.replace('\'','\"')
+		return string
+
+	"""
+	def parseJson(self):
+		with open("translatedJson.json") as json_file:
+			#string = self.fixLazyJsonQuotes(json_file)
+			string = json_file.read()
+			print('original string: ' + string)
+			startIndex = string.find('translated') + len('translated') + 4
+			if string.find('text') < string.find('success')
+			stopIndex = string.find('text')-4
+			translatedString = string[startIndex:stopIndex]
+			print('translated string: ' + translatedString)
+			sanitizedString = self.sanitizeString(translatedString)
+			print('sanitized string ' + sanitizedString)
+			return sanitizedString
+	"""
+	def sanitizeString(self, string):
+		return string.replace('\\', '')
 
 	def encodeSpaces(self, text):
 		text = text.replace(" ", "%20")
@@ -38,12 +76,13 @@ class Converter:
 
 
 
+if __name__ == '__main__':
+	converter = Converter()
+	string = converter.parseJson()
+
+
+
 		
 
-#if __name__ == '__main__':
 
-	#text = "You gave Mr. Tim a hearty meal, but unfortunately what he ate made him die."
-	#converter = Converter()
-	#converter.convert(text)
-	#converter.parseJson()
-	#converter.fixLazyJsonQuotes()
+

@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 
 class Scraper:
 
-	sources = ['cnn', 'usnews', 'cbsnews', 'space', 
+	sources = ['cnn', 'usnews', 'cbsnews', 'space.com', 
 			'nytimes', 'espn', 'usatoday', 'independent', 
 			'bbc', 'foxnews', 'wsj']
 	
@@ -16,7 +16,7 @@ class Scraper:
 		found in the webpage.  A list was used instead of a tuple because
 		I want to update the headlines in the main program.
 	"""
-	def scrapeUrls(self, content):
+	def scrapeHeadlines(self, content):
 
 		newsList = []
 
@@ -27,7 +27,7 @@ class Scraper:
 				# many headline attributes are 'None' in the soup, need to ignore those
 				if headline != 'None':
 					url_string = link.get('href')
-					if url_string:
+					if self.isNewsSource(url_string):
 						headline = headline.encode('utf-8')
 						headline = self.sanitizeHeadline(str(headline))
 						newsList.append([headline, url_string])					
@@ -98,6 +98,7 @@ class Scraper:
 	def isNewsSource(self, url_string):
 		for source in self.sources:
 			if source in url_string:
+				#print("source {} found in {}\n".format(source, url_string))
 				return True;
 		return False;
 
