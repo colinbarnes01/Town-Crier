@@ -36,13 +36,14 @@ class TestScraping(unittest.TestCase):
 		urls = self.scraper.scrapeUrls(r.content)
 		#self.assertEqual(urls[0], 'http://www.yahoo.com/')
 		
+	"""
 	def test_sanitizeHeadlines(self):
-	    testHeadline = "b'<span class=\"titletext\">This is a headline</span>'"
+	    testHeadline = "\'<span class=\"titletext\">This is a headline</span>\'"
 	    sanitizedHeadline = self.scraper.sanitizeHeadline(testHeadline)
 	    print(sanitizedHeadline)
 	    self.assertEqual(sanitizedHeadline, "This is a headline")
+	
 	"""
-
 	def test_encodeSpaces(self):
 		text = "All cats enjoy strings"
 		encodedText = self.converter.encodeSpaces(text)
@@ -53,7 +54,7 @@ class TestScraping(unittest.TestCase):
 		convertedText = self.converter.convert(text)
 		self.assertEqual(convertedText, "Thou did giveth Mr. Tim a hearty meal,"  
 			+ "but unfortunately what he englut did maketh him kicketh the bucket.")
-
+	"""
 
 if __name__ == '__main__':
 	unittest.main()

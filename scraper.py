@@ -12,8 +12,9 @@ class Scraper:
 	Args: 
 		content (bytes): the binary html content
 	Returns:
-		news list[(str,str)]: list of headline, url pairs found in
-		the webpage.
+		news list[[str,str]: list of headline, url pairs (also in a list)
+		found in the webpage.  A list was used instead of a tuple because
+		I want to update the headlines in the main program.
 	"""
 	def scrapeUrls(self, content):
 
@@ -29,8 +30,7 @@ class Scraper:
 					if url_string:
 						headline = headline.encode('utf-8')
 						headline = self.sanitizeHeadline(str(headline))
-						newsList.append((headline, url_string))
-						#newsList.append( (headline.encode('utf-8'), url_string) )						
+						newsList.append([headline, url_string])					
 
 			except Exception as e:
 				print('Exception tryin to parse headlines')
