@@ -50,7 +50,8 @@ def main():
 					elif oldEnglishString == 'ValueError':	# not sure what this error was by try another headline
 						pass
 						#break
-					elif oldEnglishString != random_pair[0]:  # if strings are the same, get another one, else break
+					#elif oldEnglishString != random_pair[0]:  # if strings are the same, get another one, else break
+					elif compareStrings(oldEnglishString, random_pair[0]) != True:
 						break
 					else:
 						print('STRING ARE THE SAME')
@@ -74,7 +75,7 @@ def main():
 				api = acctManager.api;
 
 				try:
-					api.update_status(tweet)
+					#api.update_status(tweet)
 					print('changing state after successful tweet')
 				except Error as e:
 					print('Got an error while trying to tweet: {}'.format(e))
