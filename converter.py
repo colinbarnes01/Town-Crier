@@ -9,7 +9,10 @@ class Converter:
 
 	def convert(self, text):
 		request = self.url + self.encodeSpaces(text)
-		r = requests.get(request)
+		r = requests.get(request, headers={'X-FunTranslations-Api-Secret': 'key'})
+		print(r)
+		print(r.text)
+		print(r.json)
 		self.saveJsonToFile(r)
 		convertedTweet = self.parseJson()
 		return convertedTweet
@@ -78,7 +81,8 @@ class Converter:
 
 if __name__ == '__main__':
 	converter = Converter()
-	string = converter.parseJson()
+	text = "Hello world!"
+	converter.convert(text)
 
 
 
