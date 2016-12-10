@@ -9,7 +9,7 @@ class Converter:
 
 	def convert(self, text):
 		request = self.url + self.encodeSpaces(text)
-		r = requests.get(request, headers={'X-FunTranslations-Api-Secret': 'key'})
+		r = requests.get(request, headers={'X-FunTranslations-Api-Secret': 'VOM7pNSL2OrpFUhqYyS8igeF'})
 		print(r)
 		print(r.text)
 		print(r.json)

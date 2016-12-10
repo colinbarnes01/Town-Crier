@@ -20,8 +20,9 @@ def main():
 		print(botContext.currentState.status)
 
 		if botContext.currentState.status == "WAITING":
-			print('SLEEPING FOR 300 SECONDS')
-			break
+			print('SLEEPING FOR 30 MINUTES')
+			#break
+			time.sleep(1800)
 			botContext.changeState()
 		else:
 			# this while loop exists so that a bot can break out of it
@@ -38,6 +39,7 @@ def main():
 
 				### SCRAPE THE HTML PAGE FOR THE NEWS HEADLINES AND URLS ###
 				newsList = scraper.scrapeHeadlines(binaryHtml)
+				print('********* NEWSLIST ********* \n{}'.format(newsList))
 
 				### CONVERT THE SCRAPED HEADLINES INTO OLDE ENGLISH ###	
 				# compare old and new string and see if they are the same
@@ -75,7 +77,7 @@ def main():
 				api = acctManager.api;
 
 				try:
-					#api.update_status(tweet)
+					api.update_status(tweet)
 					print('changing state after successful tweet')
 				except Error as e:
 					print('Got an error while trying to tweet: {}'.format(e))
