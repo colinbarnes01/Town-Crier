@@ -33,7 +33,7 @@ class Converter:
 
 			try:
 				jsonStuff = json.loads(string.replace('"', '\"'))
-			except Exception as e
+			except Exception as e:
 				print('Error trying to load json: {}'.format(e))
 				return "ValueError";
 			
