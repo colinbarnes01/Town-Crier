@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import time
 import random
 from scraper import Scraper
