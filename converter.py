@@ -30,6 +30,8 @@ class Converter:
 			print('\nstring after fixLazy: ' + string)
 			print('\nstring after replacing \" with \\"')
 			print(string.replace('"', '\\"'))
+			string = string.replace('u', '')
+			print('\nstring without any u\'s: ' + string)
 
 			try:
 				jsonStuff = json.loads(string.replace('"', '\"'))
