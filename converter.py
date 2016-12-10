@@ -25,11 +25,11 @@ class Converter:
 	def parseJson(self):
 		with open("translatedJson.json") as json_file:
 			string = json_file.read()
-			print('\noriginal string: ' + string)
+			#print('\noriginal string: ' + string)
 			string = self.fixLazyJsonQuotes(string)
-			print('\nstring after fixLazy: ' + string)
-			print('\nstring after replacing \" with \\"')
-			print(string.replace('"', '\\"'))
+			#print('\nstring after fixLazy: ' + string)
+			#print('\nstring after replacing \" with \\"')
+			#print(string.replace('"', '\\"'))
 
 			try:
 				jsonStuff = json.loads(string.replace('"', '\"'))
