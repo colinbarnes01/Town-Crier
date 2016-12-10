@@ -19,22 +19,22 @@ class Converter:
 	
 	def saveJsonToFile(self, r):
 		parsed_json = json.loads(r.text)
-		with open("/tmp/translatedJson.json", 'w') as file:
+		with open("translatedJson.json", 'w') as file:
 			file.write(str(parsed_json))
 	
 	def parseJson(self):
-		with open("/tmp/translatedJson.json") as json_file:
+		with open("translatedJson.json") as json_file:
 			string = json_file.read()
-			#print('\noriginal string: ' + string)
+			rint('\noriginal string: ' + string)
 			string = self.fixLazyJsonQuotes(string)
-			#print('\nstring after fixLazy: ' + string)
-			#print('\nstring after replacing \" with \\"')
-			#	print(string.replace('"', '\\"'))
+			print('\nstring after fixLazy: ' + string)
+			print('\nstring after replacing \" with \\"')
+			print(string.replace('"', '\\"'))
 
 			try:
 				jsonStuff = json.loads(string.replace('"', '\"'))
 			except ValueError as ve:
-				print(ve)
+				print('ValueError trying to load json: {}'.format(ve))
 				return "ValueError";
 			
 			try:
