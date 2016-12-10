@@ -39,7 +39,7 @@ def main():
 
 				### SCRAPE THE HTML PAGE FOR THE NEWS HEADLINES AND URLS ###
 				newsList = scraper.scrapeHeadlines(binaryHtml)
-				print('********* NEWSLIST ********* \n{}'.format(newsList))
+				#print('********* NEWSLIST ********* \n{}'.format(newsList))
 
 				### CONVERT THE SCRAPED HEADLINES INTO OLDE ENGLISH ###	
 				# compare old and new string and see if they are the same
