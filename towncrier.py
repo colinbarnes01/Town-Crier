@@ -34,7 +34,7 @@ def main():
 
 				############ REQUEST THE GOOGLE NEWS HTML PAGE ##########
 				url = 'https://news.google.com/'
-				pickle_file = 'pickledHtml.pkl'
+				pickle_file = '/tmp/pickledHtml.pkl'
 				response = requester.getHtmlBinary(url)
 				requester.dumpHtml(response, pickle_file)
 				binaryHtml = requester.loadHtml(pickle_file)
