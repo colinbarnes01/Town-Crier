@@ -1,1 +1,1 @@
-worker: towncrier.py
+worker: python towncrier.py
