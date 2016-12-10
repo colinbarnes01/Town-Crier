@@ -1,1 +1,1 @@
-worker: python towncrier.py
+web: python towncrier.py
