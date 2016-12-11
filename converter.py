@@ -1,6 +1,7 @@
 from requester import Requester
 import requests
 import json
+import demjson
 
 class Converter:
 	url = "http://api.funtranslations.com/translate/shakespeare.json?text="
@@ -26,15 +27,19 @@ class Converter:
 		with open("translatedJson.json") as json_file:
 			string = json_file.read()
 			print('\noriginal string: ' + string)
-			string = self.fixLazyJsonQuotes(string)
+			#string = self.fixLazyJsonQuotes(string)
 			print('\nstring after fixLazy: ' + string)
-			print('\nstring after replacing \" with \\"')
-			print(string.replace('"', '\\"'))
-			string = string.replace('u', '')
-			print('\nstring without any u\'s: ' + string)
+			#print('\nstring after replacing \" with \\"')
+			#print(string.replace('"', '\\"'))
+			#string = string.replace('u', '')
+			#print('\nstring without any u\'s: ' + string)
+			#string.replace('"', '\"')
+			#print('\nstring after replaceing \" with \"')
 
 			try:
-				jsonStuff = json.loads(string.replace('"', '\"'))
+				#jsonStuff = json.loads(string)
+				jsonStuff = demjson.decode(string)
+				print('jsonStuff {}'.format(jsonStuff))
 			except Exception as e:
 				print('Error trying to load json: {}'.format(e))
 				return "ValueError";
@@ -84,7 +89,7 @@ class Converter:
 if __name__ == '__main__':
 	converter = Converter()
 	text = "Hello world!"
-	converter.convert(text)
+	converter.parseJson()
 
 
 
