@@ -1,5 +1,11 @@
 #!/usr/bin/env python
 
+# Author: Colin Barnes
+# Date: 12/12/201
+# Description: towncrier is a twitter bot which scrapes headlines from 
+# 				Google News and posts them to Twitter in a silly 'Olde English' text.
+# CIS 3238 Software Design Project
+
 import time
 import random
 from scraper import Scraper
@@ -34,7 +40,7 @@ def main():
 
 				############ REQUEST THE GOOGLE NEWS HTML PAGE ##########
 				url = 'https://news.google.com/'
-				pickle_file = '/tmp/pickledHtml.pkl'
+				pickle_file = 'pickledHtml.pkl'
 				response = requester.getHtmlBinary(url)
 				requester.dumpHtml(response, pickle_file)
 				binaryHtml = requester.loadHtml(pickle_file)
@@ -58,7 +64,7 @@ def main():
 					elif compareStrings(oldEnglishString, random_pair[0]) != True:
 						break
 					else:
-						print('STRING ARE THE SAME')
+						print('STRINGS ARE THE SAME')
 						#break
 
 				if oldEnglishString == 'KeyError':	# need to break out of second while loop and wait for rate limit
@@ -69,7 +75,7 @@ def main():
 				oldEnglishString = cryify(oldEnglishString)
 
 				tweet = oldEnglishString + " " + random_pair[1]
-				print('status: {}'.format(tweet))
+				print('\ntranslated tweet: {}'.format(tweet))
 
 
 				### AUTHENTICATE TO THE TWITTER API AND GENERATE A TWEET ###

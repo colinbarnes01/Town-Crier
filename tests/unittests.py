@@ -24,21 +24,19 @@ class TestScraping(unittest.TestCase):
 	requester = Requester()
 	scraper = Scraper()
 	converter = Converter()
-	"""
+	
 	def test_getHtmlBinary(self):
 		binary = self.requester.getHtmlBinary('http://csb.stanford.edu/class/public/pages/sykes_webdesign/05_simple.html')
 		knownBinary = requests.get('http://csb.stanford.edu/class/public/pages/sykes_webdesign/05_simple.html')
 		self.assertEqual( knownBinary.content, binary )
-	"""
+	
 	def test_scrapeHeadlines(self):
 		#r = requests.get('http://csb.stanford.edu/class/public/pages/sykes_webdesign/05_simple.html')
 		r = requests.get('https://news.google.com/')
 		newsList = self.scraper.scrapeHeadlines(r.content)
 		for news in newsList:
 			print(news[1])
-		#self.assertEqual(urls[0], 'http://www.yahoo.com/')
 		
-	"""
 	def test_sanitizeHeadlines(self):
 	    testHeadline = "\'<span class=\"titletext\">This is a headline</span>\'"
 	    sanitizedHeadline = self.scraper.sanitizeHeadline(testHeadline)
@@ -53,9 +51,9 @@ class TestScraping(unittest.TestCase):
 	def test_convert(self):
 		text = "You gave Mr. Tim a hearty meal, but unfortunately what he ate made him die."
 		convertedText = self.converter.convert(text)
-		self.assertEqual(convertedText, "Thou did giveth Mr. Tim a hearty meal,"  
+		self.assertEqual(convertedText, "Thou did giveth Mr. Tim a hearty meal,  "
 			+ "but unfortunately what he englut did maketh him kicketh the bucket.")
-	"""
+
 
 if __name__ == '__main__':
 	unittest.main()

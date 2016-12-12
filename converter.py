@@ -12,8 +12,6 @@ class Converter:
 		request = self.url + self.encodeSpaces(text)
 		r = requests.get(request, headers={'X-FunTranslations-Api-Secret': 'VOM7pNSL2OrpFUhqYyS8igeF'})
 		print(r)
-		print(r.text)
-		print(r.json)
 		self.saveJsonToFile(r)
 		convertedTweet = self.parseJson()
 		return convertedTweet
@@ -62,21 +60,7 @@ class Converter:
 		string = string.replace('\'','\"')
 		return string
 
-	"""
-	def parseJson(self):
-		with open("translatedJson.json") as json_file:
-			#string = self.fixLazyJsonQuotes(json_file)
-			string = json_file.read()
-			print('original string: ' + string)
-			startIndex = string.find('translated') + len('translated') + 4
-			if string.find('text') < string.find('success')
-			stopIndex = string.find('text')-4
-			translatedString = string[startIndex:stopIndex]
-			print('translated string: ' + translatedString)
-			sanitizedString = self.sanitizeString(translatedString)
-			print('sanitized string ' + sanitizedString)
-			return sanitizedString
-	"""
+
 	def sanitizeString(self, string):
 		return string.replace('\\', '')
 
