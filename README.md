@@ -2,6 +2,8 @@
 
 towncrier is a twitter bot which scrapes headlines from Google News and posts them to Twitter in a silly 'Olde English' text.
 
+https://twitter.com/OldeTownCrier
+
 ## Installation
 Simply clone or download the git directory to your local machine.  Please do not alter the codebase without permission from the author.
 
