@@ -12,10 +12,10 @@ The program is designed to continuously run on a webserver, scraping headlines a
 programmed to scrape headlines and generates a new tweet once every thirty minutes.
 
 In order to authenticate to the Twitter API, a set of API keys are needed.  Right now I am saving those keys in a file on my local machine
-and have not uploaded them to github.  Running the program without those keys will not work.  If someone (like my professor) would like to
-use the keys to run the program, I would be happy to provide them.
+and have not uploaded them to github.  Running the program without those keys will not work.  If someone would like to
+use the keys to run the program, please contact me.
 
-## Dependancie
+## Dependencies
 Several python dependancies are required to run this program:
   - Requests
   - BeautifulSoup
